@@ -2,8 +2,8 @@
 session_start();
 $error = "";
 
-require_once 'admin/db.php'; // Include the database connection class
-$db =  new dbConnection('127.0.0.1','root','','quiz_db'); // Create a new database connection instance
+require_once 'admin/db.php'; 
+$db =  new dbConnection('127.0.0.1','root','','quiz_db'); 
 $conn = $db->getConnection(); // Get the database connection
 
 if ($conn->connect_error) {
