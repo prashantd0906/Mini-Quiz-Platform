@@ -17,6 +17,7 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <title>Admin Dashboard</title>
     <!-- <link rel="stylesheet" href="./css/dashboard.css"> -->
@@ -28,12 +29,12 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     <div class="d-flex justify-content-between align-items-center mb-4">
         <h2>📊 Admin Dashboard</h2>
         <div>
-    <a href="question.php" class="btn btn-dark me-2">View Questions</a>
-    <a href="addQuestion.php" class="btn btn-success me-2">Add Question</a>
-    <form action="logout.php" method="post" class="d-inline">
-        <button class="btn btn-danger">Logout</button>
-    </form>
-</div>
+            <a href="question.php" class="btn btn-dark me-2">View Questions</a>
+            <a href="addQuestion.php" class="btn btn-success me-2">Add Question</a>
+            <form action="logout.php" method="post" class="d-inline">
+                <button class="btn btn-danger">Logout</button>
+            </form>
+        </div>
     </div>
 
     <form method="get" class="row g-2 mb-4">
@@ -83,4 +84,5 @@ if (isset($_GET['search']) && !empty($_GET['search'])) {
     <?php endif; ?>
 
 </body>
+
 </html>

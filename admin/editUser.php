@@ -18,6 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Edit User</title>
@@ -26,6 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
+
 <body class="bg-light d-flex justify-content-center align-items-center" style="min-height: 100vh;">
 
     <div class="card shadow p-4" style="width: 100%; max-width: 400px;">
@@ -35,13 +37,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="mb-3">
                 <label class="form-label">Username</label>
                 <input type="text" name="username" class="form-control"
-                       value="<?= $user['username'] ?? '' ?>" required>
+                    value="<?= $user['username'] ?? '' ?>" required>
             </div>
 
             <div class="mb-3">
                 <label class="form-label">Score</label>
                 <input type="number" name="score" class="form-control"
-                       value="<?= (string)($user['score'] ?? '') ?>" required>
+                    value="<?= (string)($user['score'] ?? '') ?>" required>
             </div>
 
             <div class="d-grid gap-2">
@@ -52,4 +54,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 
 </body>
+
 </html>

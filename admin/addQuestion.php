@@ -22,8 +22,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 ?>
 
 <html>
-    <title>Add Question</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<title>Add Question</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
 <body class="container py-4">
     <h2 class="mb-3">➕ Add Question</h2>
     <?= $msg ?>
@@ -34,9 +35,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <input type="text" name="option2" class="form-control mb-2" placeholder="Option 2" required>
         <input type="text" name="option3" class="form-control mb-2" placeholder="Option 3" required>
         <input type="text" name="option4" class="form-control mb-2" placeholder="Option 4" required>
-        <input type="number" name="correct_answer" min="1" max="4" class="form-control mb-3" placeholder="Correct option (1-4)" required>
+        <input type="text" name="correct_answer" min="1" max="4" class="form-control mb-3" placeholder="Correct option" required>
         <button type="submit" class="btn btn-primary">Add</button>
         <a href="dashboard.php" class="btn btn-secondary">Back</a>
     </form>
 </body>
+
 </html>

@@ -4,7 +4,7 @@ class quizQuestions {
         $conn = new mysqli('127.0.0.1', 'root', '', 'quiz_db');
 
         if ($conn->connect_error) {
-            die("Connection failed: ");
+            die("Connection failed: " . $conn->connect_error);
         }
 
         $q = $conn->real_escape_string($q);
@@ -12,10 +12,10 @@ class quizQuestions {
         $o2 = $conn->real_escape_string($o2);
         $o3 = $conn->real_escape_string($o3);
         $o4 = $conn->real_escape_string($o4);
-        $correct = (int)$correct;
+        $correct = $conn->real_escape_string($correct);
 
         $sql = "INSERT INTO quiz_questions (question, option1, option2, option3, option4, answer) 
-                VALUES ('$q', '$o1', '$o2', '$o3', '$o4', $correct)";
+                VALUES ('$q', '$o1', '$o2', '$o3', '$o4', '$correct')";
 
         return $conn->query($sql);
     }

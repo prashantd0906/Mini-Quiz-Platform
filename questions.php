@@ -1,15 +1,18 @@
 <?php
-class quizQuestions {
+class quizQuestions
+{
     private $conn;
 
-    public function __construct() {
+    public function __construct()
+    {
         $this->conn = new mysqli('127.0.0.1', 'root', '', 'quiz_db');
         if ($this->conn->connect_error) {
             die("connection failed: ");
         }
     }
 
-    public function getAllQuestions() {
+    public function getAllQuestions()
+    {
         $questions = [];
         $result = $this->conn->query("SELECT * FROM quiz_questions");
 
@@ -31,4 +34,3 @@ class quizQuestions {
         return $questions;
     }
 }
-?>

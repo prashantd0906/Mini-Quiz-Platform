@@ -1,6 +1,3 @@
-CREATE DATABASE IF NOT EXISTS admin_panel;
-USE admin_panel;
-
 -- Admin table
 CREATE TABLE admin (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -19,9 +16,6 @@ CREATE TABLE users (
 -- Insert default admin
 INSERT INTO admin (username, password)
 VALUES ('admin', MD5('admin123'));  -- use MD5 or hash with PHP
-
-
-
 
 
 -- Create database
