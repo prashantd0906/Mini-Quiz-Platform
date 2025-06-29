@@ -53,5 +53,6 @@ class UserManager extends dbConnection implements userInterface {
         $sql = "DELETE FROM quiz_results WHERE id = $id";
         return $this->conn->query($sql);
     }
+    
 }
 ?>

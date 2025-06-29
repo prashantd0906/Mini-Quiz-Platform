@@ -28,7 +28,7 @@ if (isset($_POST['user'])) {
         
         <button type="submit" name="admin" class="btn btn-outline-dark btn-lg">
             🔐 Admin - Login
-            /button>
+        </button>
         </div>
     </form>
 </div>
