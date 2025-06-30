@@ -1,4 +1,4 @@
-# Mini-Quiz-Platform
+# Mini-Quiz-Platform - HOME.php is my main file
 
 Steps to run this project locally in your system.
 
