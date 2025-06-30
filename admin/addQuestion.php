@@ -4,16 +4,16 @@ require_once '../classes/addQuestions.php';
 
 $msg = "";
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $q = $_POST['question'] ?? '';
-    $o1 = $_POST['option1'] ?? '';
-    $o2 = $_POST['option2'] ?? '';
-    $o3 = $_POST['option3'] ?? '';
-    $o4 = $_POST['option4'] ?? '';
-    $correct = $_POST['correct_answer'] ?? '';
+    $question = $_POST['question'] ?? '';
+    $option1 = $_POST['option1'] ?? '';
+    $option2 = $_POST['option2'] ?? '';
+    $option3 = $_POST['option3'] ?? '';
+    $option4 = $_POST['option4'] ?? '';
+    $answer = $_POST['answer'] ?? '';
 
-    if ($q && $o1 && $o2 && $o3 && $o4 && $correct) {
+    if ($question && $option1 && $option2 && $option3 && $option4 && $answer) {
         $quiz = new quizQuestions();
-        $quiz->addQuestion($q, $o1, $o2, $o3, $o4, $correct);
+        $quiz->addQuestion($question, $option1, $option2, $option3, $option4, $answer);
         $msg = "<div class='alert alert-success'>Question added successfully!</div>";
     } else {
         $msg = "<div class='alert alert-danger'>Please fill in all fields.</div>";

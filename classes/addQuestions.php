@@ -1,21 +1,21 @@
 <?php
 class quizQuestions {
-    public function addQuestion($q, $o1, $o2, $o3, $o4, $correct) {
+    public function addQuestion($question, $option1, $option2, $option3, $option4, $answer) {
         $conn = new mysqli('127.0.0.1', 'root', '', 'quiz_db');
 
         if ($conn->connect_error) {
             die("Connection failed: " . $conn->connect_error);
         }
 
-        $q = $conn->real_escape_string($q);
-        $o1 = $conn->real_escape_string($o1);
-        $o2 = $conn->real_escape_string($o2);
-        $o3 = $conn->real_escape_string($o3);
-        $o4 = $conn->real_escape_string($o4);
-        $correct = $conn->real_escape_string($correct);
+        $question = $conn->real_escape_string($question);
+        $option1 = $conn->real_escape_string($option1);
+        $option2 = $conn->real_escape_string($option2);
+        $option3 = $conn->real_escape_string($option3);
+        $option4 = $conn->real_escape_string($option4);
+        $answer = $conn->real_escape_string($answer);
 
         $sql = "INSERT INTO quiz_questions (question, option1, option2, option3, option4, answer) 
-                VALUES ('$q', '$o1', '$o2', '$o3', '$o4', '$correct')";
+                VALUES ('$question', '$option1', '$option2', '$option3', '$option4', '$answer')";
 
         return $conn->query($sql);
     }
