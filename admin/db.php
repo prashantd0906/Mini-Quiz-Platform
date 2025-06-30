@@ -16,3 +16,4 @@ class dbConnection
         return $this->conn;
     }
 }
+?>
