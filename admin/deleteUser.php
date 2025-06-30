@@ -17,6 +17,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         header("Location: dashboard.php");
         exit;
     }
+    if (isset($_POST['cancel'])) {
+        header("Location: dashboard.php");
+        exit;
+    }
 }
 ?>
 
