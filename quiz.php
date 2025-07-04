@@ -1,6 +1,21 @@
 <?php
-require 'questions.php';
-$quiz = new quizQuestions();
+session_start();
+
+// direct access restricted
+if (!isset($_SESSION['name'])) {
+    header("Location: index.php");
+    exit;
+}
+
+require_once 'admin/db.php';
+require_once 'questions.php';
+
+// DB connection
+$db = new dbConnection('127.0.0.1', 'root', '', 'quiz_db');
+$conn = $db->getConnection();
+
+//quizQuestions class
+$quiz = new quizQuestions($conn);
 $questions = $quiz->getAllQuestions();
 ?>
 
@@ -31,5 +46,4 @@ $questions = $quiz->getAllQuestions();
         </form>
     </div>
 </body>
-
 </html>

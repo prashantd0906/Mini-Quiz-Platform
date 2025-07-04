@@ -1,20 +1,19 @@
 <?php
+require_once 'admin/db.php';
+
 class quizQuestions
 {
     private $conn;
-
-    public function __construct()
+    public function __construct($conn)
     {
-        $this->conn = new mysqli('127.0.0.1', 'root', '', 'quiz_db');
-        if ($this->conn->connect_error) {
-            die("connection failed: ");
-        }
+        $this->conn = $conn;
     }
-
-    public function getAllQuestions()
+    public function getAllQuestions() // Fetch all questions with options and answer
     {
         $questions = [];
-        $result = $this->conn->query("SELECT * FROM quiz_questions");
+
+        $sql = "SELECT id, question, option1, option2, option3, option4, answer FROM quiz_questions";
+        $result = $this->conn->query($sql);
 
         if ($result && $result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
@@ -34,3 +33,4 @@ class quizQuestions
         return $questions;
     }
 }
+?>

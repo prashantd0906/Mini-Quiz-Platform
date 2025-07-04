@@ -1,7 +1,15 @@
 <?php
 session_start();
-require_once '../classes/UserManager.php';
+
+// Block non-admin users
+if (!isset($_SESSION['admin'])) {
+    header("Location: adminLogin.php");
+    exit;
+}
+
+require_once '../classes/userManager.php';
 $userManager = new UserManager();
+
 
 $sort_option = 'ASC';
 if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] === 'z-a') {
@@ -9,7 +17,7 @@ if (isset($_GET['sort_alphabet']) && $_GET['sort_alphabet'] === 'z-a') {
 }
 
 if (isset($_GET['search']) && !empty($_GET['search'])) {
-    $users = $userManager->searchUsers($_GET['search']);
+    $users = $userManager->getUsers($_GET['search']);
 } else {
     $users = $userManager->getAllUsersSorted($sort_option);
 }

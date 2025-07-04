@@ -1,30 +1,39 @@
 <?php
 session_start();
 require_once 'admin/db.php';
-$db =  new dbConnection('127.0.0.1', 'root', '', 'quiz_db');
-$conn = $db->getConnection();
+
 $error = "";
+$db = new dbConnection('127.0.0.1', 'root', '', 'quiz_db');
+$conn = $db->getConnection();
 
-if ($conn->connect_error) {
-    die("Connection failed: ");
-}
-
-if (isset($_POST['login'])) {
-    $name = $_POST['name'];
-    $password = $_POST['password'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+    $name = $_POST['name'] ?? '';
+    $password = ($_POST['password'] ?? '');
 
     if (empty($name) || empty($password)) {
         $error = "Both name and password are required.";
     } else {
-        $sql = "SELECT * FROM users WHERE name = '$name' AND password = '$password'";
+        $name = $conn->real_escape_string($name);
+
+        $sql = "SELECT * FROM users WHERE name = '$name' AND password = '$password' LIMIT 1";
+
         $result = $conn->query($sql);
 
-        if ($result && $result->num_rows > 0) {
-            $_SESSION['name'] = $name;
-            header('Location: quiz.php');
-            exit;
+        if ($result && $result->num_rows === 1) {
+            $user = $result->fetch_assoc();
+
+            // Only allow non-admin users to log in
+            if ($user['role'] !== 'admin') {
+                $_SESSION['name'] = $user['name'];
+                $_SESSION['loggedin'] = true;
+
+                header('Location: quiz.php');
+                exit;
+            } else {
+                $error = "Admins must log in from the admin portal.";
+            }
         } else {
-            $error = "Please register first";
+            $error = "Invalid credentials.";
         }
     }
 }
@@ -65,10 +74,10 @@ if (isset($_POST['login'])) {
                     <button type="submit" name="login" class="btn btn-secondary w-100">Login</button>
 
                 </form>
-
             </div>
         </div>
     </div>
 
 </body>
+
 </html>

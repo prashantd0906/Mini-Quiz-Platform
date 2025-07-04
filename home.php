@@ -1,6 +1,6 @@
 <?php
 if (isset($_POST['user'])) {
-    header("Location: register.php");
+    header("Location: register.php"); 
     die();
 } elseif (isset($_POST['admin'])) {
     header("Location: admin/adminLogin.php");
@@ -34,5 +34,4 @@ if (isset($_POST['user'])) {
         </form>
     </div>
 </body>
-
 </html>

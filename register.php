@@ -1,40 +1,48 @@
 <?php
 session_start();
-$error = "";
-
 require_once 'admin/db.php';
-$db =  new dbConnection('127.0.0.1', 'root', '', 'quiz_db');
-$conn = $db->getConnection(); // Get the database connection
 
-if ($conn->connect_error) {
-    die("Connection failed: ");
-}
+$error = "";
+$db = new dbConnection('127.0.0.1', 'root', '', 'quiz_db');
+$conn = $db->getConnection();
 
-if (isset($_POST['register'])) {
-    $name = $_POST['name'];
-    $password = $_POST['password'];
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
+    $name = $_POST['name'] ?? '';
+    $password = $_POST['password'] ?? '';
 
-    if ($name == "" || $password == "") {
+    // Validation
+    if (empty($name) || empty($password)) {
         $error = "Both name and password are required.";
+    } elseif (!preg_match('/^[a-zA-Z0-9_]{3,20}$/', $name)) {
+        $error = "Username must be 3-20 characters with only letters, numbers, or underscores.";
+    } elseif (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,20}$/', $password)) {
+        $error = "Password must be 5-20 characters with both letters and numbers.";
     } else {
+        // Escape inputs
+        $name = $conn->real_escape_string($name);
+        $password = $conn->real_escape_string($password);
 
-        $check_sql = "SELECT * FROM users WHERE name = '$name' AND password = '$password'";
-        $result = $conn->query($check_sql);
+        //if user already exists
+        $sql = "SELECT id FROM users WHERE name = '$name' AND password = '$password'";
+        $result = $conn->query($sql);
 
         if ($result && $result->num_rows > 0) {
-            $error = "User already registered. Please go to login.";
+            $error = "User already registered. Please login.";
         } else {
-            $insert_sql = "INSERT INTO users (name, password) VALUES ('$name', '$password')";
-
-            if ($conn->query($insert_sql) === TRUE) {
+            $insert = "INSERT INTO users (name, password, role) VALUES ('$name', '$password', 'user')";
+            if ($conn->query($insert)) {
                 $_SESSION['name'] = $name;
+                setcookie('username', $name, time() + (7 * 24 * 60 * 60), "/");
                 header("Location: login.php");
                 exit;
+            } else {
+                $error = "Error during registration.";
             }
         }
     }
 }
 ?>
+
 
 <html>
 <title>Register</title>
@@ -71,5 +79,4 @@ if (isset($_POST['register'])) {
         </div>
     </div>
 </body>
-
 </html>
