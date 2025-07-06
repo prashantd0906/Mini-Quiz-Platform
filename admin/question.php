@@ -65,5 +65,4 @@ $questions = $userManager->getAllQuestions();
     <a href="dashboard.php">← Back to Dashboard</a>
 
 </body>
-
 </html>

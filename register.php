@@ -15,8 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         $error = "Both name and password are required.";
     } elseif (!preg_match('/^[a-zA-Z0-9_]{3,20}$/', $name)) {
         $error = "Username must be 3-20 characters with only letters, numbers, or underscores.";
-    } elseif (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{5,20}$/', $password)) {
-        $error = "Password must be 5-20 characters with both letters and numbers.";
+    } elseif (!preg_match('/^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@$!%*#?&]{5,20}$/', $password)) {
+        $error = "Password must be 5-20 characters with letters, numbers, and allowed special characters";
     } else {
         // Escape inputs
         $name = $conn->real_escape_string($name);
@@ -79,4 +79,5 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         </div>
     </div>
 </body>
+
 </html>

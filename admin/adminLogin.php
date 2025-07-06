@@ -11,7 +11,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $name = $_POST['name'] ?? '';
     $password = md5($_POST['password'] ?? '');
 
-    $query = "SELECT * FROM users WHERE name='$name' AND password='$password' AND role='admin'";
+    $query = "SELECT id, name, password FROM users WHERE name='$name' AND password='$password' AND role='admin'";
     $result = $conn->query($query);
 
     if ($result && $result->num_rows === 1) {
