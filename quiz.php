@@ -2,8 +2,8 @@
 session_start();
 
 // direct access restricted
-if (!isset($_SESSION['name'])) {
-    header("Location: index.php");
+if (!isset($_SESSION['name']) || $_SESSION['role'] !== 'user') {
+    header("Location: register.php");
     exit;
 }
 

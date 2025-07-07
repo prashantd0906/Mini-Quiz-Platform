@@ -1,12 +1,6 @@
 <?php
 session_start();
 
-// Block non-admin users
-if (!isset($_SESSION['admin'])) {
-    header("Location: adminLogin.php");
-    exit;
-}
-
 require_once '../classes/userManager.php';
 $userManager = new UserManager();
 

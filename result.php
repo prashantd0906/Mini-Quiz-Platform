@@ -3,6 +3,18 @@ session_start();
 require_once 'questions.php';
 require_once 'admin/db.php';
 
+// ❌ If user is not logged in, redirect to registration
+if (!isset($_SESSION['name'])) {
+    header("Location: register.php");
+    exit;
+}
+
+// ❌ If no answers submitted via POST, block direct access and go to registration
+if ($_SERVER['REQUEST_METHOD'] !== 'POST' || empty($_POST['answers'])) {
+    header("Location: register.php");
+    exit;
+}
+
 $db = new dbConnection();
 $conn = $db->getConnection();
 
@@ -10,7 +22,7 @@ $quiz = new quizQuestions($conn);
 $questions = $quiz->getAllQuestions();
 
 // Get user's answers 
-$userAnswers = $_POST['answers'] ?? [];
+$userAnswers = $_POST['answers'];
 $totalscore = 0;
 
 // Check answers
@@ -29,10 +41,9 @@ echo "<h2>Hello, $userName! Thanks for taking up the quiz.</h2>";
 echo "<p><strong>Your score is: </strong><strong>$totalscore / $totalQuestions</strong></p>";
 echo '<a href="logout.php" class="btn btn-danger mt-3">Logout</a>';
 
-// Escape user input
+// Save results
 $userNameEscaped = $conn->real_escape_string($userName);
 
-// Insert/update result
 $checkSql = "SELECT id FROM quiz_results WHERE username = '$userNameEscaped'";
 $result = $conn->query($checkSql);
 

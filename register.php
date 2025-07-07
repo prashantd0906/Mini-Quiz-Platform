@@ -20,9 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     } else {
         // Escape inputs
         $name = $conn->real_escape_string($name);
+        $password = md5($password);
         $password = $conn->real_escape_string($password);
 
-        //if user already exists
+        // Check if user exists
         $sql = "SELECT id FROM users WHERE name = '$name' AND password = '$password'";
         $result = $conn->query($sql);
 
@@ -33,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
             if ($conn->query($insert)) {
                 $_SESSION['name'] = $name;
                 setcookie('username', $name, time() + (7 * 24 * 60 * 60), "/");
-                header("Location: login.php");
+                header("Location: index.php");
                 exit;
             } else {
                 $error = "Error during registration.";
@@ -43,35 +44,26 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
 }
 ?>
 
-
 <html>
 <title>Register</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
 <body class="bg-light">
     <div class="container mt-6">
         <div class="row justify-content-center">
             <div class="col-md-6">
-
                 <h2 class="text-center mb-5">Register</h2>
-
                 <?php if ($error != ""): ?>
-                    <div class="alert alert-danger text-center">
-                        <?php echo $error; ?>
-                    </div>
+                    <div class="alert alert-danger text-center"><?= $error; ?></div>
                 <?php endif; ?>
-
                 <form method="post">
                     <div class="mb-3">
                         <label class="form-label">Name</label>
                         <input type="text" name="name" class="form-control" placeholder="Enter your name">
                     </div>
-
                     <div class="mb-3">
                         <label class="form-label">Password</label>
                         <input type="password" name="password" class="form-control" placeholder="Enter a password">
                     </div>
-
                     <button type="submit" name="register" class="btn btn-secondary w-100">Register</button>
                     <a href="index.php" class="btn btn-outline-primary w-100 mt-2">Go to Login</a>
                 </form>
@@ -79,5 +71,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         </div>
     </div>
 </body>
-
 </html>
